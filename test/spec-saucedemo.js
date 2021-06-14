@@ -43,7 +43,7 @@
         browser.get('https://www.saucedemo.com/');
     });
 
-    it('Complete checkout of a item', function () {
+    it('Complete checkout of a item', function () { 
         Login('standard_user', 'secret_sauce'); 
             
         //Validate login success
