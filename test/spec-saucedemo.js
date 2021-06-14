@@ -116,6 +116,7 @@
         ContinueCheckoutButton.click();
         ErrorCheckout.isDisplayed();   
         expect(ErrorCheckout.getText()).toContain('Error: Postal Code is required');
+        Logout();
                                      
     });
 
