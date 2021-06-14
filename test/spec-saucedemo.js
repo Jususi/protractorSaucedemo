@@ -17,6 +17,9 @@
     var CheckoutContainer = element(by.id('checkout_complete_container'));
     var MenuButton = element(by.id('react-burger-menu-btn'));
     var LogoutLink = element(by.id('logout_sidebar_link'));
+
+    var ErrorButton = element(by.xpath('//*[@id="login_button_container"]/div/form/div[3]/h3'));
+    var ErrorCheckout = element(by.xpath('//*[@id="checkout_info_container"]/div/form/div[1]/div[4]/h3'));
    
 
     function Login(username, password) {
@@ -28,7 +31,11 @@
     function FillYourInformation(name, lastName, postalcode) {
         FirstNameCheckout.sendKeys(name);
         LastNameCheckout.sendKeys(lastName);
-        PostalCodeCheckout.sendKeys(postalcode);        
+        if (postalcode != 0) {
+            PostalCodeCheckout.sendKeys(postalcode);     
+        }
+       
+                    
     }
 
     function Logout() {
@@ -78,13 +85,38 @@
 
         //verify Thank you Page
         expect(CheckoutContainer.getText()).toContain('THANK YOU FOR YOUR ORDER');
-        
-                      
+                            
         //logout
         Logout();
         LoginButton.isDisplayed();
 
 
+    });
+
+    it('Validate an incorrect Login', function () {
+        Login('standard_user', 'wrong');
+
+        //Validate button indicates login incorrect
+        ErrorButton.isDisplayed();    
+        expect(ErrorButton.getText()).toContain('Epic sadface: Username and password do not match any user in this service');
+    });
+
+    it('Validate the checkout form when it not filled', function () {
+        Login('standard_user', 'secret_sauce');
+
+        //Add a product
+        AddBackpackItem.click();
+        expect(ShopppingCart.getText()).toEqual('1');
+        ShopppingCart.click();
+        expect(TitleHeader.getText()).toEqual('YOUR CART');
+        CheckoutButton.click();
+        expect(TitleHeader.getText()).toEqual('CHECKOUT: YOUR INFORMATION');
+        //Fill without zip code
+        FillYourInformation('Judy', 'Cabanzo',0 );
+        ContinueCheckoutButton.click();
+        ErrorCheckout.isDisplayed();   
+        expect(ErrorCheckout.getText()).toContain('Error: Postal Code is required');
+                                     
     });
 
    
