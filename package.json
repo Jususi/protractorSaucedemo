@@ -1,0 +1,25 @@
+{
+  "name": "saucedemo",
+  "version": "0.0.0",
+  "description": "saucedemo",
+  "main": "app.js",
+  "author": "Judy Cabanzo",
+  "scripts": {
+    "test": "protractor protractor.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jususi/protractorSaucedemo.git"
+  },
+  "keywords": [
+    "protractor"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jususi/protractorSaucedemo/issues"
+  },
+  "homepage": "https://github.com/Jususi/protractorSaucedemo#readme",
+  "dependencies": {
+    "protractor": "^7.0.0"
+  }
+}
